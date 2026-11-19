@@ -35,8 +35,9 @@ TERMINAL_NAMES = {
     END_OF_INPUT: "end of input",
 }
 
-PARSER = Lark(GRAMMAR, parser="lalr", start="start")
+LITERAL_KINDS = {"NAME": "name", "NUMBER": "number"}
 
+PARSER = Lark(GRAMMAR, parser="lalr", start="start")
 
 def display_name(terminal: str) -> str:
     """Return a human readable name of a grammar terminal."""
@@ -53,14 +54,16 @@ def describe_unexpected_char(error: UnexpectedCharacters) -> str:
 
 def describe_unexpected_token(error: UnexpectedToken) -> str:
     """Build the message for a token that is not allowed at this place."""
-    expected = sorted(display_name(name) for name in error.expected)
-    options = ", ".join(expected)
-    if error.token.type == END_OF_INPUT:
+    allowed = error.accepts or error.expected
+    options = ", ".join(sorted(display_name(name) for name in allowed))
+    token = error.token
+    if token.type == END_OF_INPUT:
         found = "unexpected end of input"
+    elif token.type in LITERAL_KINDS:
+        found = f"unexpected {LITERAL_KINDS[token.type]} {str(token)!r}"
     else:
-        found = f"unexpected {display_name(error.token.type)}"
-        found += f" {str(error.token)!r}"
-    return f"{found}; expected one of: {options}"
+        found = f"unexpected {str(token)!r}"
+    return f"{found}; expected: {options}"
 
 
 def describe(error: UnexpectedInput) -> str:
