@@ -1,0 +1,13 @@
+{
+  "Triangle": {
+    "LegA": 3,
+    "LegB": 4,
+    "Hypotenuse": 5,
+    "Perimeter": 12
+  },
+  "Square": {
+    "Side": 12,
+    "Area": 144,
+    "Diagonal": 16.97056274847714
+  }
+}

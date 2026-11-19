@@ -1,0 +1,26 @@
+" Конфигурация кластера веб-сервисов (предметная область: DevOps)
+|#
+Порты и размеры пулов вычисляются на этапе трансляции
+из нескольких базовых констант.
+#|
+def BasePort = 8000;
+def Replicas = 3;
+def Workers = [Replicas 2 +];
+def PoolSize = [Workers 2 pow];
+def Timeouts = table(
+  Connect => 5,
+  Read => 30,
+);
+
+table(
+  Cluster => table(
+    Replicas => [Replicas],
+    Workers => [Workers],
+  ),
+  Http => table(
+    Port => [BasePort 80 +],
+    AdminPort => [BasePort 1 +],
+    Pool => [PoolSize],
+  ),
+  Timeouts => [Timeouts],
+)

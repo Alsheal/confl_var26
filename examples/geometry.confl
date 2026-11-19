@@ -1,0 +1,23 @@
+" Параметры участка (предметная область: землеустройство)
+|#
+Катеты прямоугольного треугольника заданы константами.
+Гипотенуза и периметр вычисляются по теореме Пифагора.
+#|
+def LegA = 3;
+def LegB = 4;
+def Hypotenuse = [LegA 2 pow LegB 2 pow + sqrt];
+def Side = 12;
+
+table(
+  Triangle => table(
+    LegA => [LegA],
+    LegB => [LegB],
+    Hypotenuse => [Hypotenuse],
+    Perimeter => [LegA LegB + Hypotenuse +],
+  ),
+  Square => table(
+    Side => [Side],
+    Area => [Side 2 pow],
+    Diagonal => [Side 2 pow Side 2 pow + sqrt],
+  ),
+)

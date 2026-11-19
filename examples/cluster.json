@@ -1,0 +1,15 @@
+{
+  "Cluster": {
+    "Replicas": 3,
+    "Workers": 5
+  },
+  "Http": {
+    "Port": 8080,
+    "AdminPort": 8001,
+    "Pool": 25
+  },
+  "Timeouts": {
+    "Connect": 5,
+    "Read": 30
+  }
+}
